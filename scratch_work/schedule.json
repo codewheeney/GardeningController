@@ -1,0 +1,56 @@
+{
+	"devices": [{
+			"id": "ad3e6ff8-cdf9-467c-92ce-a77b67a6553d",
+			"name": "Drip System"
+		},
+		{
+			"id": "bc5d72ad-7c27-4d21-9d41-fcfff59f593f",
+			"name": "Front Yard"
+		}
+	],
+	"operations": [{
+			"id": "916efdb4-194d-4d2c-b71e-87df59f4bf49",
+			"name": "Morning Drip",
+			"startTime": "2019-11-26T21:37:19+00:00",
+			"endTime": "2019-11-26T21:37:19+00:00",
+			"device": "ad3e6ff8-cdf9-467c-92ce-a77b67a6553d"
+		},
+		{
+			"id": "3803fc8a-2334-4fe6-83b5-70a270988e08",
+			"name": "Evening Drip",
+			"startTime": "2019-11-26T21:37:19+00:00",
+			"endTime": "2019-11-26T21:37:19+00:00",
+			"device": "ad3e6ff8-cdf9-467c-92ce-a77b67a6553d"
+		}
+	],
+	"weekly_schedule": {
+		"monday": [
+			"916efdb4-194d-4d2c-b71e-87df59f4bf49",
+			"3803fc8a-2334-4fe6-83b5-70a270988e08"
+		],
+		"tuesday": [
+			"916efdb4-194d-4d2c-b71e-87df59f4bf49",
+			"3803fc8a-2334-4fe6-83b5-70a270988e08"
+		],
+		"wednesday": [
+			"916efdb4-194d-4d2c-b71e-87df59f4bf49",
+			"3803fc8a-2334-4fe6-83b5-70a270988e08"
+		],
+		"thursday": [
+			"916efdb4-194d-4d2c-b71e-87df59f4bf49",
+			"3803fc8a-2334-4fe6-83b5-70a270988e08"
+		],
+		"friday": [
+			"916efdb4-194d-4d2c-b71e-87df59f4bf49",
+			"3803fc8a-2334-4fe6-83b5-70a270988e08"
+		],
+		"saturday": [
+			"916efdb4-194d-4d2c-b71e-87df59f4bf49",
+			"3803fc8a-2334-4fe6-83b5-70a270988e08"
+		],
+		"sunday": [
+			"916efdb4-194d-4d2c-b71e-87df59f4bf49",
+			"3803fc8a-2334-4fe6-83b5-70a270988e08"
+		]
+	}
+}

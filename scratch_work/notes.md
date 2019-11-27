@@ -1,0 +1,1 @@
+Should we use jsCalender, from the IETF? https://tools.ietf.org/id/draft-ietf-calext-jscalendar-21.html
