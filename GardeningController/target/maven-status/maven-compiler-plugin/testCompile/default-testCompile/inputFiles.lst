@@ -1,2 +1,4 @@
-/Users/jc/dev/GardeningController/GardeningController/src/test/java/earth/cassidy/gardeningcontroller/AppTest.java
-/Users/jc/dev/GardeningController/GardeningController/src/test/java/earth/cassidy/gardeningcontroller/schedule/OperationListTest.java
+/Users/jc/dev/GardeningController/GardeningController/src/test/java/earth/cassidy/gardeningcontroller/schedule/WateringTimeTest.java
+/Users/jc/dev/GardeningController/GardeningController/src/test/java/earth/cassidy/gardeningcontroller/schedule/DailyScheduleTest.java
+/Users/jc/dev/GardeningController/GardeningController/src/test/java/earth/cassidy/gardeningcontroller/WateringControllerTest.java
+/Users/jc/dev/GardeningController/GardeningController/src/test/java/earth/cassidy/gardeningcontroller/BaseTest.java

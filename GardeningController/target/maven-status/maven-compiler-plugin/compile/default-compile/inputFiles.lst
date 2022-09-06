@@ -1,3 +1,4 @@
-/Users/jc/dev/GardeningController/GardeningController/src/main/java/earth/cassidy/gardeningcontroller/schedule/WeeklySchedule.java
-/Users/jc/dev/GardeningController/GardeningController/src/main/java/earth/cassidy/gardeningcontroller/App.java
-/Users/jc/dev/GardeningController/GardeningController/src/main/java/earth/cassidy/gardeningcontroller/schedule/OperationList.java
+/Users/jc/dev/GardeningController/GardeningController/src/main/java/earth/cassidy/gardeningcontroller/WateringController.java
+/Users/jc/dev/GardeningController/GardeningController/src/main/java/earth/cassidy/gardeningcontroller/schedule/WateringTime.java
+/Users/jc/dev/GardeningController/GardeningController/src/main/java/earth/cassidy/gardeningcontroller/schedule/DailySchedule.java
+/Users/jc/dev/GardeningController/GardeningController/src/main/java/earth/cassidy/gardeningcontroller/GardeningController.java
