@@ -7,26 +7,38 @@ import java.time.Duration;
 import java.time.LocalTime;
 
 @AutoValue
-@JsonDeserialize(builder = AutoValue_WateringTime.Builder.class)
-public abstract class WateringTime {
+@JsonDeserialize(builder = AutoValue_TimedAction.Builder.class)
+public abstract class TimedAction {
   @JsonProperty("startTime")
   public abstract LocalTime startTime();
 
   @JsonProperty("duration")
   public abstract Duration duration();
 
+  @JsonProperty("startAction")
+  public abstract String startAction();
+
+  @JsonProperty("endAction")
+  public abstract String endAction();
+
   public static Builder builder() {
-    return new AutoValue_WateringTime.Builder();
+    return new AutoValue_TimedAction.Builder();
   }
 
   @AutoValue.Builder
   public abstract static class Builder {
-    public abstract WateringTime build();
+    public abstract TimedAction build();
 
     @JsonProperty("startTime")
     public abstract Builder startTime(LocalTime startTime);
 
     @JsonProperty("duration")
     public abstract Builder duration(Duration duration);
+
+    @JsonProperty("startAction")
+    public abstract Builder startAction(String startAction);
+
+    @JsonProperty("endAction")
+    public abstract Builder endAction(String endAction);
   }
 }

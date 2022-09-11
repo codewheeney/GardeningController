@@ -13,16 +13,20 @@ import org.testng.annotations.Test;
 public class DailyScheduleTest extends BaseTest {
   @Test
   public void testBuilder() {
-    final WateringTime wt1 =
-        WateringTime.builder()
+    final TimedAction wt1 =
+        TimedAction.builder()
             .startTime(LocalTime.of(9, 0))
             .duration(Duration.ofMinutes(15))
+            .startAction("foo")
+            .endAction("foo")
             .build();
 
-    final WateringTime wt2 =
-        WateringTime.builder()
+    final TimedAction wt2 =
+        TimedAction.builder()
             .startTime(LocalTime.of(18, 0))
             .duration(Duration.ofMinutes(15))
+            .startAction("foo")
+            .endAction("foo")
             .build();
 
     final DailySchedule dailySchedule =
@@ -47,16 +51,20 @@ public class DailyScheduleTest extends BaseTest {
 
   @Test
   public void testSerialization() throws JsonProcessingException {
-    final WateringTime wt1 =
-        WateringTime.builder()
+    final TimedAction wt1 =
+        TimedAction.builder()
             .startTime(LocalTime.of(9, 0))
             .duration(Duration.ofMinutes(15))
+            .startAction("foo")
+            .endAction("foo")
             .build();
 
-    final WateringTime wt2 =
-        WateringTime.builder()
+    final TimedAction wt2 =
+        TimedAction.builder()
             .startTime(LocalTime.of(18, 0))
             .duration(Duration.ofMinutes(15))
+            .startAction("foo")
+            .endAction("foo")
             .build();
 
     final DailySchedule dailySchedule =

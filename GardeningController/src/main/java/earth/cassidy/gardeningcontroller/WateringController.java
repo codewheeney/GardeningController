@@ -2,24 +2,27 @@ package earth.cassidy.gardeningcontroller;
 
 import com.google.common.annotations.VisibleForTesting;
 import earth.cassidy.gardeningcontroller.schedule.DailySchedule;
-import earth.cassidy.gardeningcontroller.schedule.WateringTime;
+import earth.cassidy.gardeningcontroller.schedule.TimedAction;
 import java.lang.invoke.MethodHandles;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class WateringController implements Runnable {
   private static final Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
   private final DailySchedule dailySchedule;
-  private final Consumer<Duration> turnOnMethod;
+  private final BiConsumer<Duration, String> turnOnMethod;
+  private final BiConsumer<Duration, String> turnOffMethod;
 
-  public WateringController(final DailySchedule dailySchedule, final Consumer<Duration> turnOnMethod) {
+  public WateringController(final DailySchedule dailySchedule,
+      final BiConsumer<Duration, String> turnOnMethod, final BiConsumer<Duration, String> turnOffMethod) {
     this.dailySchedule = dailySchedule;
     this.turnOnMethod = turnOnMethod;
+    this.turnOffMethod = turnOffMethod;
   }
 
   @Override
@@ -31,13 +34,13 @@ public class WateringController implements Runnable {
       final LocalDate day = LocalDate.now();
 
       switch(day.getDayOfWeek()) {
-        case MONDAY -> executeDay(now, dailySchedule.mondayTimes(), turnOnMethod);
-        case TUESDAY -> executeDay(now, dailySchedule.tuesdayTimes(), turnOnMethod);
-        case WEDNESDAY -> executeDay(now, dailySchedule.wednesdayTimes(), turnOnMethod);
-        case THURSDAY -> executeDay(now, dailySchedule.thursdayTimes(), turnOnMethod);
-        case FRIDAY -> executeDay(now, dailySchedule.fridayTimes(), turnOnMethod);
-        case SATURDAY -> executeDay(now, dailySchedule.saturdayTimes(), turnOnMethod);
-        case SUNDAY -> executeDay(now, dailySchedule.sundayTimes(), turnOnMethod);
+        case MONDAY -> executeDay(now, dailySchedule.mondayTimes(), turnOnMethod, turnOffMethod);
+        case TUESDAY -> executeDay(now, dailySchedule.tuesdayTimes(), turnOnMethod, turnOffMethod);
+        case WEDNESDAY -> executeDay(now, dailySchedule.wednesdayTimes(), turnOnMethod, turnOffMethod);
+        case THURSDAY -> executeDay(now, dailySchedule.thursdayTimes(), turnOnMethod, turnOffMethod);
+        case FRIDAY -> executeDay(now, dailySchedule.fridayTimes(), turnOnMethod, turnOffMethod);
+        case SATURDAY -> executeDay(now, dailySchedule.saturdayTimes(), turnOnMethod, turnOffMethod);
+        case SUNDAY -> executeDay(now, dailySchedule.sundayTimes(), turnOnMethod, turnOffMethod);
       }
 
       log.log(Level.FINE, "Done schedule");
@@ -47,12 +50,17 @@ public class WateringController implements Runnable {
   }
 
   @VisibleForTesting
-  protected static void executeDay(final LocalTime now, final List<WateringTime> times, final Consumer<Duration> turnOnMethod) {
-    for(final WateringTime wt : times) {
-      if(now.isAfter(wt.startTime()) && now.isBefore(wt.startTime().plus(wt.duration()))){
-        log.log(Level.FINE, String.format("%s matches %s", now, wt));
+  protected static void executeDay(final LocalTime now, final List<TimedAction> actionList,
+      final BiConsumer<Duration, String> turnOnMethod, final BiConsumer<Duration, String> turnOffMethod) {
+    for(final TimedAction ta : actionList) {
+      if(now.isAfter(ta.startTime()) && now.isBefore(ta.startTime().plus(ta.duration()))){
+        log.log(Level.FINE, String.format("%s matches %s, turning on", now, ta));
         
-        turnOnMethod.accept(wt.duration());
+        turnOnMethod.accept(ta.duration(), ta.startAction());
+      } else {
+        log.log(Level.FINE, String.format("%s does not match %s, turning off", now, ta));
+
+        turnOffMethod.accept(ta.duration(), ta.endAction());
       }
     }
   }

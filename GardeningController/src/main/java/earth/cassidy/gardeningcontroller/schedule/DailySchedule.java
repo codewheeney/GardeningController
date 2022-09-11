@@ -9,25 +9,25 @@ import java.util.List;
 @JsonDeserialize(builder = AutoValue_DailySchedule.Builder.class)
 public abstract class DailySchedule {
   @JsonProperty("mondayTimes")
-  public abstract List<WateringTime> mondayTimes();
+  public abstract List<TimedAction> mondayTimes();
 
   @JsonProperty("tuesdayTimes")
-  public abstract List<WateringTime> tuesdayTimes();
+  public abstract List<TimedAction> tuesdayTimes();
 
   @JsonProperty("wednesdayTimes")
-  public abstract List<WateringTime> wednesdayTimes();
+  public abstract List<TimedAction> wednesdayTimes();
 
   @JsonProperty("thursdayTimes")
-  public abstract List<WateringTime> thursdayTimes();
+  public abstract List<TimedAction> thursdayTimes();
 
   @JsonProperty("fridayTimes")
-  public abstract List<WateringTime> fridayTimes();
+  public abstract List<TimedAction> fridayTimes();
 
   @JsonProperty("saturdayTimes")
-  public abstract List<WateringTime> saturdayTimes();
+  public abstract List<TimedAction> saturdayTimes();
 
   @JsonProperty("sundayTimes")
-  public abstract List<WateringTime> sundayTimes();
+  public abstract List<TimedAction> sundayTimes();
 
   public static Builder builder() {
     return new AutoValue_DailySchedule.Builder();
@@ -38,24 +38,24 @@ public abstract class DailySchedule {
     public abstract DailySchedule build();
 
     @JsonProperty("mondayTimes")
-    public abstract Builder mondayTimes(List<WateringTime> mondayTimes);
+    public abstract Builder mondayTimes(List<TimedAction> mondayTimes);
 
     @JsonProperty("tuesdayTimes")
-    public abstract Builder tuesdayTimes(List<WateringTime> tuesdayTimes);
+    public abstract Builder tuesdayTimes(List<TimedAction> tuesdayTimes);
 
     @JsonProperty("wednesdayTimes")
-    public abstract Builder wednesdayTimes(List<WateringTime> wednesdayTimes);
+    public abstract Builder wednesdayTimes(List<TimedAction> wednesdayTimes);
 
     @JsonProperty("thursdayTimes")
-    public abstract Builder thursdayTimes(List<WateringTime> thursdayTimes);
+    public abstract Builder thursdayTimes(List<TimedAction> thursdayTimes);
 
     @JsonProperty("fridayTimes")
-    public abstract Builder fridayTimes(List<WateringTime> fridayTimes);
+    public abstract Builder fridayTimes(List<TimedAction> fridayTimes);
 
     @JsonProperty("saturdayTimes")
-    public abstract Builder saturdayTimes(List<WateringTime> saturdayTimes);
+    public abstract Builder saturdayTimes(List<TimedAction> saturdayTimes);
 
     @JsonProperty("sundayTimes")
-    public abstract Builder sundayTimes(List<WateringTime> sundayTimes);
+    public abstract Builder sundayTimes(List<TimedAction> sundayTimes);
   }
 }
