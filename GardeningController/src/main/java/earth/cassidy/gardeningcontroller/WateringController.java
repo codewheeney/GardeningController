@@ -15,14 +15,11 @@ import java.util.logging.Logger;
 public class WateringController implements Runnable {
   private static final Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass().toString());
   private final DailySchedule dailySchedule;
-  private final BiConsumer<Duration, String> turnOnMethod;
-  private final BiConsumer<Duration, String> turnOffMethod;
+  private final ITimedActionConsumer timedActionConsumer;
 
-  public WateringController(final DailySchedule dailySchedule,
-      final BiConsumer<Duration, String> turnOnMethod, final BiConsumer<Duration, String> turnOffMethod) {
+  public WateringController(final DailySchedule dailySchedule, ITimedActionConsumer timedActionConsumer) {
     this.dailySchedule = dailySchedule;
-    this.turnOnMethod = turnOnMethod;
-    this.turnOffMethod = turnOffMethod;
+    this.timedActionConsumer = timedActionConsumer;
   }
 
   @Override
@@ -34,13 +31,13 @@ public class WateringController implements Runnable {
       final LocalDate day = LocalDate.now();
 
       switch(day.getDayOfWeek()) {
-        case MONDAY -> executeDay(now, dailySchedule.mondayTimes(), turnOnMethod, turnOffMethod);
-        case TUESDAY -> executeDay(now, dailySchedule.tuesdayTimes(), turnOnMethod, turnOffMethod);
-        case WEDNESDAY -> executeDay(now, dailySchedule.wednesdayTimes(), turnOnMethod, turnOffMethod);
-        case THURSDAY -> executeDay(now, dailySchedule.thursdayTimes(), turnOnMethod, turnOffMethod);
-        case FRIDAY -> executeDay(now, dailySchedule.fridayTimes(), turnOnMethod, turnOffMethod);
-        case SATURDAY -> executeDay(now, dailySchedule.saturdayTimes(), turnOnMethod, turnOffMethod);
-        case SUNDAY -> executeDay(now, dailySchedule.sundayTimes(), turnOnMethod, turnOffMethod);
+        case MONDAY -> executeDay(now, dailySchedule.mondayTimes(), timedActionConsumer);
+        case TUESDAY -> executeDay(now, dailySchedule.tuesdayTimes(), timedActionConsumer);
+        case WEDNESDAY -> executeDay(now, dailySchedule.wednesdayTimes(), timedActionConsumer);
+        case THURSDAY -> executeDay(now, dailySchedule.thursdayTimes(), timedActionConsumer);
+        case FRIDAY -> executeDay(now, dailySchedule.fridayTimes(), timedActionConsumer);
+        case SATURDAY -> executeDay(now, dailySchedule.saturdayTimes(), timedActionConsumer);
+        case SUNDAY -> executeDay(now, dailySchedule.sundayTimes(), timedActionConsumer);
       }
 
       log.log(Level.FINE, "Done schedule");
@@ -51,16 +48,16 @@ public class WateringController implements Runnable {
 
   @VisibleForTesting
   protected static void executeDay(final LocalTime now, final List<TimedAction> actionList,
-      final BiConsumer<Duration, String> turnOnMethod, final BiConsumer<Duration, String> turnOffMethod) {
+      final ITimedActionConsumer timedActionConsumer) {
     for(final TimedAction ta : actionList) {
       if(now.isAfter(ta.startTime()) && now.isBefore(ta.startTime().plus(ta.duration()))){
         log.log(Level.FINE, String.format("%s matches %s, turning on", now, ta));
         
-        turnOnMethod.accept(ta.duration(), ta.startAction());
+        timedActionConsumer.onTurnOn(ta);
       } else {
         log.log(Level.FINE, String.format("%s does not match %s, turning off", now, ta));
 
-        turnOffMethod.accept(ta.duration(), ta.endAction());
+        timedActionConsumer.onTurnOff(ta);
       }
     }
   }
